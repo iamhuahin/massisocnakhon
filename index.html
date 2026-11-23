@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ฐานข้อมูลเครือข่ายมวลชน กอ.รมน.จังหวัด น.ศ.</title>
+  <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -57,15 +58,23 @@
       text-align: center;
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
+    .login-logo {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      margin: 0 auto 14px;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.45));
+    }
     .login-badge {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 99px;
       background: rgba(59,130,246,0.15);
       color: #60a5fa;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .login-card h1 {
       margin: 0 0 6px;
@@ -128,16 +137,27 @@
       background: rgba(11, 17, 32, 0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 16px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
     .topbar-title {
       font-size: 16px;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.2;
     }
     .topbar-sub {
       font-size: 12px;
@@ -280,13 +300,6 @@
       color: var(--muted);
     }
     .card-body { flex: 1; min-width: 0; }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
     .net-tag {
       display: inline-block;
       font-size: 11px;
@@ -510,9 +523,12 @@
 
     .empty-state {
       text-align: center;
-      padding: 40px 16px;
+      padding: 42px 18px;
       color: var(--muted);
       font-size: 15px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
     }
   </style>
 </head>
@@ -521,6 +537,7 @@
 <!-- ==================== LOGIN SCREEN ==================== -->
 <div id="loginScreen">
   <div class="login-card">
+    <img src="logo.png" alt="โลโก้ กอ.รมน." class="login-logo" />
     <div class="login-badge">กอ.รมน.จังหวัดนครศรีธรรมราช</div>
     <h1>ฐานข้อมูลเครือข่ายมวลชน</h1>
     <p>กรุณากรอกรหัสผ่านเจ้าหน้าที่เพื่อเข้าใช้งาน</p>
@@ -533,9 +550,12 @@
 <!-- ==================== MAIN APP ==================== -->
 <div id="appShell" style="display:none;">
   <header class="topbar">
-    <div>
-      <div class="topbar-title">เครือข่ายมวลชน จว.น.ศ.</div>
-      <div class="topbar-sub">กอ.รมน.จังหวัดนครศรีธรรมราช</div>
+    <div class="topbar-brand">
+      <img src="logo.png" alt="กอ.รมน." class="topbar-logo" />
+      <div>
+        <div class="topbar-title">เครือข่ายมวลชน จว.น.ศ.</div>
+        <div class="topbar-sub">กอ.รมน.จังหวัดนครศรีธรรมราช</div>
+      </div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
       <span id="roleBadge" class="role-pill role-user">เจ้าหน้าที่</span>
@@ -547,6 +567,23 @@
     <!-- VIEW 1: AREA SEARCH -->
     <section id="view-search" class="view-section active">
       <div class="filter-box">
+        <div class="filter-row">
+          <div>
+            <label class="field-label">ประเภทเครือข่าย</label>
+            <select id="filterType" onchange="onTypeChange()">
+              <option value="">-- เลือกประเภทเครือข่าย --</option>
+              <option value="phet">ครูเพชรในตม</option>
+              <option value="tsps">สมาชิก ทสปช.</option>
+              <option value="wisdom">ปราชญ์เพื่อความมั่นคง</option>
+            </select>
+          </div>
+          <div id="subLevelWrap" style="display:none;">
+            <label class="field-label" id="subLevelLabel">ระดับ / กลุ่มย่อย</label>
+            <select id="filterSubLevel" onchange="renderAreaSearch()">
+              <option value="">ทั้งหมด</option>
+            </select>
+          </div>
+        </div>
         <div class="filter-row">
           <div>
             <label class="field-label">อำเภอ</label>
@@ -561,24 +598,13 @@
             </select>
           </div>
         </div>
-        <div class="filter-row">
-          <div>
-            <label class="field-label">ประเภทเครือข่าย</label>
-            <select id="filterType" onchange="renderAreaSearch()">
-              <option value="">ทั้งหมด (3 เครือข่าย)</option>
-              <option value="phet">ครูเพชรในตม</option>
-              <option value="tsps">สมาชิก ทสปช.</option>
-              <option value="wisdom">ปราชญ์เพื่อความมั่นคง</option>
-            </select>
-          </div>
-          <div>
-            <label class="field-label">คำค้นหา (ชื่อ / ตำแหน่ง / องค์ความรู้)</label>
-            <input type="text" id="filterQuery" placeholder="พิมพ์คำค้น..." oninput="renderAreaSearch()" />
-          </div>
+        <div>
+          <label class="field-label">คำค้นหา (ชื่อ / นามสกุล / ตำแหน่ง / องค์ความรู้)</label>
+          <input type="text" id="filterQuery" placeholder="พิมพ์คำค้นหา..." oninput="renderAreaSearch()" />
         </div>
       </div>
       <div class="result-bar">
-        <span id="searchCount">กำลังโหลด...</span>
+        <span id="searchCount">กรุณาเลือกตัวกรองหรือพิมพ์คำค้นหา</span>
         <button class="btn-logout" onclick="resetSearchFilters()">ล้างตัวกรอง</button>
       </div>
       <div id="searchList" class="card-list"></div>
@@ -592,7 +618,18 @@
         <button class="subtab-btn" data-net="wisdom" onclick="switchNetworkTab('wisdom')">ปราชญ์ฯ</button>
       </div>
       <div class="filter-box">
-        <input type="text" id="netQuery" placeholder="ค้นหาชื่อ, อำเภอ, ตำบล, ตำแหน่ง..." oninput="renderNetworkTab()" />
+        <div class="filter-row">
+          <div>
+            <label class="field-label" id="netSubLevelLabel">ระดับ / กลุ่มย่อย</label>
+            <select id="netSubLevel" onchange="renderNetworkTab()">
+              <option value="">ทั้งหมด</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">ค้นหาในเครือข่าย</label>
+            <input type="text" id="netQuery" placeholder="ชื่อ, อำเภอ, ตำบล..." oninput="renderNetworkTab()" />
+          </div>
+        </div>
       </div>
       <div class="result-bar">
         <span id="netCount">0 รายการ</span>
@@ -631,7 +668,7 @@
 <div id="editModal" class="modal-backdrop">
   <div class="modal-box">
     <div class="modal-head">
-      <h2>แก้ไขข้อมูล / แนบภาพบุคคล</h2>
+      <h2>อัปเดตข้อมูล / แนบภาพบุคคล</h2>
       <button class="btn-close" onclick="closeEditModal()">&times;</button>
     </div>
     <div class="form-grid">
@@ -667,7 +704,6 @@
         <input type="text" id="editPosition" />
       </div>
 
-      <!-- Dynamic Fields -->
       <div id="fieldBatchWrap" style="display:none;">
         <label class="field-label">เพชรในตม รุ่นที่</label>
         <input type="text" id="editBatch" />
@@ -723,6 +759,9 @@
 <script>
   const API_URL = "https://script.google.com/macros/s/AKfycbwujWi6oyNyPdCg3-bhKA0Ywgr9W_DIjugqUSS-S89BBM_Oyn9oyXW4UcsJKnzmweJ_/exec";
 
+  const NON_GEO_DISTRICTS = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)", "ไม่ระบุอำเภอ"];
+  const NON_GEO_SUBDISTRICTS = ["ระดับจังหวัด", "กลุ่มนิสิต", "-"];
+
   let allRecords = [];
   let currentRole = null;
   let currentPin = null;
@@ -732,12 +771,10 @@
 
   const AVATAR_SVG = `<svg class="avatar-placeholder" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`;
 
-  // Enter to login
   document.getElementById("pinInput").addEventListener("keydown", e => {
     if (e.key === "Enter") handleLogin();
   });
 
-  // Restore temporary session (sessionStorage clears when tab closes)
   window.addEventListener("DOMContentLoaded", () => {
     const savedPin = sessionStorage.getItem("isoc_ns_pin");
     if (savedPin) {
@@ -753,6 +790,46 @@
       body: JSON.stringify(payload)
     });
     return await res.json();
+  }
+
+  function classifySubLevel(r) {
+    const pos = String(r.position || "");
+    if (r.type === "phet") {
+      if (pos.includes("ศึกษาปีที่") || !r.rawDistrict) return "นิสิต";
+      if (pos.includes("ผู้อำนวยการ") || pos.includes("ผอ.")) return "ผู้บริหาร";
+      return "ครูผู้สอน";
+    }
+    if (r.type === "tsps") {
+      if (pos.includes("ที่ปรึกษา")) return "ที่ปรึกษา";
+      if (!r.rawDistrict || r.district === "ระดับจังหวัด / ที่ปรึกษา") return "คณะกรรมการระดับจังหวัด";
+      return "สมาชิก ทสปช. ทั่วไป";
+    }
+    if (r.type === "wisdom") {
+      return r.branch || "ไม่ระบุสาขา";
+    }
+    return "";
+  }
+
+  function getSubLevelOptions(type) {
+    if (type === "phet") {
+      return ["ผู้บริหาร", "ครูผู้สอน", "นิสิต"];
+    }
+    if (type === "tsps") {
+      return ["ที่ปรึกษา", "คณะกรรมการระดับจังหวัด", "สมาชิก ทสปช. ทั่วไป"];
+    }
+    if (type === "wisdom") {
+      return [...new Set(
+        allRecords.filter(r => r.type === "wisdom").map(r => r.subLevel).filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, "th"));
+    }
+    return [];
+  }
+
+  function getSubLevelTitle(type) {
+    if (type === "phet") return "ระดับเครือข่าย (ครูเพชรในตม)";
+    if (type === "tsps") return "ระดับสมาชิก (ทสปช.)";
+    if (type === "wisdom") return "สาขาความเชี่ยวชาญ (ปราชญ์ฯ)";
+    return "ระดับ / กลุ่มย่อย";
   }
 
   async function handleLogin() {
@@ -774,12 +851,12 @@
       }
       currentPin = pin;
       currentRole = data.role;
-      allRecords = data.records || [];
+      allRecords = (data.records || []).map(r => ({ ...r, subLevel: classifySubLevel(r) }));
       sessionStorage.setItem("isoc_ns_pin", pin);
 
       const badge = document.getElementById("roleBadge");
       if (currentRole === "admin") {
-        badge.textContent = "ผู้ดูแล (แก้ไขได้)";
+        badge.textContent = "ผู้ดูแล (อัปเดตได้)";
         badge.className = "role-pill role-admin";
       } else {
         badge.textContent = "เจ้าหน้าที่";
@@ -789,6 +866,7 @@
       document.getElementById("loginScreen").style.display = "none";
       document.getElementById("appShell").style.display = "block";
       initFilters();
+      populateNetSubLevel();
       renderAreaSearch();
       renderNetworkTab();
       renderDashboard();
@@ -819,22 +897,45 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // ==================== FILTERS ====================
-  function getSortedDistricts() {
-    const special = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)"];
-    const set = new Set(allRecords.map(r => r.district).filter(Boolean));
-    const normal = [...set].filter(d => !special.includes(d)).sort((a, b) => a.localeCompare(b, "th"));
-    const existingSpecial = special.filter(s => set.has(s));
-    return [...existingSpecial, ...normal];
+  // ==================== FILTERS (AREA SEARCH) ====================
+  function getRealDistricts(typeFilter = "") {
+    return [...new Set(
+      allRecords
+        .filter(r => (!typeFilter || r.type === typeFilter) && r.district && !NON_GEO_DISTRICTS.includes(r.district))
+        .map(r => r.district)
+    )].sort((a, b) => a.localeCompare(b, "th"));
   }
 
   function initFilters() {
+    const type = document.getElementById("filterType").value;
     const distSelect = document.getElementById("filterDistrict");
     const prev = distSelect.value;
+    const list = getRealDistricts(type);
     distSelect.innerHTML = `<option value="">ทั้งหมดทุกอำเภอ</option>` +
-      getSortedDistricts().map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join("");
-    if (prev) distSelect.value = prev;
+      list.map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join("");
+    if (prev && list.includes(prev)) distSelect.value = prev;
     populateSubdistricts();
+  }
+
+  function onTypeChange() {
+    const type = document.getElementById("filterType").value;
+    const wrap = document.getElementById("subLevelWrap");
+    const sel  = document.getElementById("filterSubLevel");
+    const lbl  = document.getElementById("subLevelLabel");
+
+    if (type) {
+      const opts = getSubLevelOptions(type);
+      lbl.textContent = getSubLevelTitle(type);
+      sel.innerHTML = `<option value="">ทั้งหมด</option>` +
+        opts.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("");
+      wrap.style.display = "block";
+    } else {
+      sel.innerHTML = `<option value="">ทั้งหมด</option>`;
+      wrap.style.display = "none";
+    }
+
+    initFilters();
+    renderAreaSearch();
   }
 
   function onDistrictChange() {
@@ -843,13 +944,17 @@
   }
 
   function populateSubdistricts() {
+    const type = document.getElementById("filterType").value;
     const dist = document.getElementById("filterDistrict").value;
     const subSelect = document.getElementById("filterSubdistrict");
     const subs = [...new Set(
       allRecords
-        .filter(r => !dist || r.district === dist)
+        .filter(r => {
+          if (type && r.type !== type) return false;
+          if (dist && r.district !== dist) return false;
+          return r.subdistrict && !NON_GEO_SUBDISTRICTS.includes(r.subdistrict);
+        })
         .map(r => r.subdistrict)
-        .filter(s => s && s !== "-")
     )].sort((a, b) => a.localeCompare(b, "th"));
 
     subSelect.innerHTML = `<option value="">ทั้งหมดทุกตำบล</option>` +
@@ -857,28 +962,40 @@
   }
 
   function resetSearchFilters() {
-    document.getElementById("filterDistrict").value = "";
     document.getElementById("filterType").value = "";
+    document.getElementById("filterSubLevel").innerHTML = `<option value="">ทั้งหมด</option>`;
+    document.getElementById("subLevelWrap").style.display = "none";
+    document.getElementById("filterDistrict").value = "";
     document.getElementById("filterQuery").value = "";
-    populateSubdistricts();
+    initFilters();
     renderAreaSearch();
   }
 
   // ==================== RENDER CARDS ====================
   function renderAreaSearch() {
+    const type = document.getElementById("filterType").value;
+    const subLv = document.getElementById("filterSubLevel").value;
     const dist = document.getElementById("filterDistrict").value;
     const sub  = document.getElementById("filterSubdistrict").value;
-    const type = document.getElementById("filterType").value;
     const q    = document.getElementById("filterQuery").value.trim().toLowerCase();
 
+    // ข้อ 1: ยังไม่แสดงข้อมูลทั้งหมดจนกว่าผู้ใช้จะเลือกตัวกรองหรือพิมพ์คำค้นหา
+    if (!type && !subLv && !dist && !sub && !q) {
+      document.getElementById("searchCount").textContent = "กรุณาเลือกประเภทเครือข่าย พื้นที่ หรือพิมพ์คำค้นหา";
+      document.getElementById("searchList").innerHTML =
+        `<div class="empty-state">เลือกเงื่อนไขด้านบนเพื่อสืบค้นรายชื่อเครือข่ายมวลชน</div>`;
+      return;
+    }
+
     const list = allRecords.filter(r => {
+      if (type && r.type !== type) return false;
+      if (subLv && r.subLevel !== subLv) return false;
       if (dist && r.district !== dist) return false;
       if (sub && r.subdistrict !== sub) return false;
-      if (type && r.type !== type) return false;
       if (q) {
         const hay = [
           r.prefix, r.firstName, r.lastName, r.position, r.workplace,
-          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone
+          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone, r.subLevel
         ].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
@@ -896,17 +1013,27 @@
     document.querySelectorAll(".subtab-btn").forEach(b => {
       b.classList.toggle("active", b.dataset.net === net);
     });
+    populateNetSubLevel();
     renderNetworkTab();
   }
 
+  function populateNetSubLevel() {
+    const opts = getSubLevelOptions(currentNetTab);
+    document.getElementById("netSubLevelLabel").textContent = getSubLevelTitle(currentNetTab);
+    document.getElementById("netSubLevel").innerHTML = `<option value="">ทั้งหมด</option>` +
+      opts.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("");
+  }
+
   function renderNetworkTab() {
+    const subLv = document.getElementById("netSubLevel").value;
     const q = document.getElementById("netQuery").value.trim().toLowerCase();
     const list = allRecords.filter(r => {
       if (r.type !== currentNetTab) return false;
+      if (subLv && r.subLevel !== subLv) return false;
       if (q) {
         const hay = [
           r.prefix, r.firstName, r.lastName, r.position, r.workplace,
-          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone
+          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone, r.subLevel
         ].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
@@ -931,12 +1058,12 @@
       details = `
         <div><span class="lbl">รุ่นที่:</span> ${esc(r.batch || "-")} | <span class="lbl">ตำแหน่ง:</span> ${esc(r.position || "-")}</div>
         ${r.workplace ? `<div><span class="lbl">สถานที่ทำงาน:</span> ${esc(r.workplace)}</div>` : ""}
-        <div><span class="lbl">พื้นที่:</span> ต.${esc(r.subdistrict)} อ.${esc(r.district)}</div>
+        <div><span class="lbl">พื้นที่:</span> ${r.rawDistrict ? `ต.${esc(r.subdistrict)} อ.${esc(r.district)}` : esc(r.subLevel)}</div>
       `;
     } else if (r.type === "tsps") {
       details = `
         <div><span class="lbl">ตำแหน่ง:</span> ${esc(r.position || "-")}</div>
-        <div><span class="lbl">พื้นที่:</span> ${r.district === "ระดับจังหวัด / ที่ปรึกษา" ? esc(r.district) : `ต.${esc(r.subdistrict)} อ.${esc(r.district)}`}</div>
+        <div><span class="lbl">พื้นที่:</span> ${r.rawDistrict ? `ต.${esc(r.subdistrict)} อ.${esc(r.district)}` : esc(r.subLevel)}</div>
       `;
     } else {
       details = `
@@ -952,14 +1079,14 @@
       : (r.phone ? `<span style="font-size:13px;color:var(--muted);">โทร: ${esc(r.phone)}</span>` : "");
 
     const editBtn = currentRole === "admin"
-      ? `<button class="btn-edit" onclick="openEditModal('${esc(r.id)}')">✏️ แก้ไข / รูป</button>`
+      ? `<button class="btn-edit" onclick="openEditModal('${esc(r.id)}')">✏️ อัปเดตข้อมูล</button>`
       : "";
 
     return `
       <div class="person-card">
         <div class="avatar-wrap">${avatarHtml}</div>
         <div class="card-body">
-          <span class="net-tag ${tagClass}">${esc(r.typeLabel)}</span>
+          <span class="net-tag ${tagClass}">${esc(r.typeLabel)} • ${esc(r.subLevel)}</span>
           <div class="person-name">${esc(fullName)}</div>
           <div class="detail-list">${details}</div>
           <div class="card-actions">${callBtn}${editBtn}</div>
@@ -994,14 +1121,21 @@
       distMap[d].subs[s][r.type]++;
     });
 
-    const html = getSortedDistricts().map(d => {
+    const special = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)"];
+    const allDist = Object.keys(distMap);
+    const ordered = [
+      ...special.filter(s => allDist.includes(s)),
+      ...allDist.filter(d => !special.includes(d)).sort((a, b) => a.localeCompare(b, "th"))
+    ];
+
+    const html = ordered.map(d => {
       const info = distMap[d];
-      if (!info) return "";
       const subRows = Object.keys(info.subs).sort((a, b) => a.localeCompare(b, "th")).map(s => {
         const si = info.subs[s];
+        const label = NON_GEO_SUBDISTRICTS.includes(s) ? s : `ต.${s}`;
         return `
           <div class="subdist-row">
-            <span>ต.${esc(s)}</span>
+            <span>${esc(label)}</span>
             <span>
               <strong style="color:#fff">${si.total}</strong>
               <span style="color:var(--muted);font-size:12px;">
@@ -1142,13 +1276,13 @@
         return;
       }
 
-      // รีโหลดข้อมูลล่าสุดจากชีตเพื่อให้การจัดกลุ่มพื้นที่ตรง 100%
       const refreshed = await apiPost({ action: "getData", pin: currentPin });
       if (refreshed.ok) {
-        allRecords = refreshed.records || [];
+        allRecords = (refreshed.records || []).map(r => ({ ...r, subLevel: classifySubLevel(r) }));
       }
 
       initFilters();
+      populateNetSubLevel();
       renderAreaSearch();
       renderNetworkTab();
       renderDashboard();
