@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ระดมพล | กอ.รมน.จังหวัด น.ศ.</title>
   <meta name="apple-mobile-web-app-title" content="ระดมพล" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="application-name" content="ระดมพล" />
+  <meta name="theme-color" content="#0b1120" />
+  <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,6 +142,15 @@
     }
     .btn-primary:hover { background: var(--primary-hover); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-install {
+      width: 100%;
+      margin-top: 10px;
+      background: rgba(52, 211, 153, 0.14);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      display: none;
+    }
+    .btn-install:hover { background: rgba(52, 211, 153, 0.24); }
     .login-error {
       margin-top: 12px;
       color: #f87171;
@@ -562,6 +575,7 @@
     <p class="login-hint">กรุณากรอกรหัสผ่านเจ้าหน้าที่เพื่อเข้าใช้งาน</p>
     <input type="password" id="pinInput" class="input-pin" placeholder="กรอกรหัสผ่าน" autocomplete="off" />
     <button id="loginBtn" class="btn btn-primary" onclick="handleLogin()">เข้าสู่ระบบ</button>
+    <button id="installPwaBtn" class="btn btn-install" onclick="handleInstallPwa()">📲 ติดตั้งแอป "ระดมพล" ลงมือถือ</button>
     <div id="loginError" class="login-error"></div>
   </div>
 </div>
@@ -787,9 +801,51 @@
   let currentNetTab = "phet";
   let editingRecord = null;
   let cropperInstance = null;
+  let deferredPrompt = null;
 
   const AVATAR_SVG = `<svg class="avatar-placeholder" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`;
 
+  // ==================== PWA INSTALL LOGIC ====================
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+
+  window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!isStandalone) {
+      document.getElementById("installPwaBtn").style.display = "inline-flex";
+    }
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    document.getElementById("installPwaBtn").style.display = "none";
+  });
+
+  if (isIos && !isStandalone) {
+    document.getElementById("installPwaBtn").style.display = "inline-flex";
+  }
+
+  async function handleInstallPwa() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        document.getElementById("installPwaBtn").style.display = "none";
+      }
+      deferredPrompt = null;
+    } else if (isIos) {
+      alert('วิธีติดตั้งบน iPhone:\n1. แตะปุ่ม "แชร์" (ไอคอนลูกศรชี้ขึ้นด้านล่าง)\n2. เลื่อนลงมาเลือก "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)\n3. กด "เพิ่ม" มุมขวาบน');
+    }
+  }
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
+
+  // ==================== LOGIN & APP ====================
   document.getElementById("pinInput").addEventListener("keydown", e => {
     if (e.key === "Enter") handleLogin();
   });
