@@ -29,6 +29,7 @@
       --phet: #38bdf8;
       --tsps: #34d399;
       --wisdom: #fbbf24;
+      --special: #c084fc;
       --danger: #ef4444;
       --success: #22c55e;
       --radius: 14px;
@@ -135,13 +136,12 @@
       cursor: pointer;
       transition: 0.15s;
     }
-    .btn-primary {
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-    }
+    .btn-primary { width: 100%; background: var(--primary); color: #fff; }
     .btn-primary:hover { background: var(--primary-hover); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-special { width: 100%; background: #9333ea; color: #fff; }
+    .btn-special:hover { background: #7e22ce; }
+    .btn-special:disabled { opacity: 0.6; cursor: not-allowed; }
     .btn-install {
       width: 100%;
       margin-top: 10px;
@@ -150,7 +150,6 @@
       border: 1px solid rgba(52, 211, 153, 0.35);
       display: none;
     }
-    .btn-install:hover { background: rgba(52, 211, 153, 0.24); }
     .login-error {
       margin-top: 12px;
       color: #f87171;
@@ -172,35 +171,11 @@
       justify-content: space-between;
       gap: 10px;
     }
-    .topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .topbar-logo {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-    .topbar-title {
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-    .topbar-sub {
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-    .role-pill {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 99px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; }
+    .topbar-logo { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+    .topbar-title { font-size: 18px; font-weight: 800; line-height: 1.15; letter-spacing: 0.5px; color: #fff; }
+    .topbar-sub { font-size: 11.5px; color: var(--muted); }
+    .role-pill { font-size: 11px; padding: 3px 9px; border-radius: 99px; font-weight: 600; white-space: nowrap; }
     .role-user { background: rgba(56,189,248,0.15); color: var(--phet); }
     .role-admin { background: rgba(251,191,36,0.18); color: var(--wisdom); }
     .btn-logout {
@@ -215,15 +190,11 @@
     }
 
     /* Main Container */
-    .container {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 14px;
-    }
+    .container { max-width: 820px; margin: 0 auto; padding: 14px; }
     .view-section { display: none; }
     .view-section.active { display: block; }
 
-    /* Filters */
+    /* Filters & Forms */
     .filter-box {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -233,20 +204,9 @@
       display: grid;
       gap: 10px;
     }
-    .filter-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 480px) {
-      .filter-row { grid-template-columns: 1fr; }
-    }
-    label.field-label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
+    .filter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 480px) { .filter-row { grid-template-columns: 1fr; } }
+    label.field-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
     select, input[type="text"], textarea {
       width: 100%;
       padding: 10px 12px;
@@ -258,9 +218,7 @@
       font-size: 15px;
       outline: none;
     }
-    select:focus, input[type="text"]:focus, textarea:focus {
-      border-color: var(--primary);
-    }
+    select:focus, input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
 
     .result-bar {
       display: flex;
@@ -271,28 +229,29 @@
       color: var(--muted);
     }
 
-    /* Network Sub-Tabs */
+    /* Network Sub-Tabs (4 Tabs) */
     .subtabs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
       margin-bottom: 12px;
     }
     .subtab-btn {
-      padding: 10px 6px;
-      border-radius: 12px;
+      padding: 9px 4px;
+      border-radius: 11px;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--muted);
       font-family: inherit;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       text-align: center;
     }
-    .subtab-btn.active[data-net="phet"]   { background: rgba(56,189,248,0.16); color: var(--phet); border-color: var(--phet); }
-    .subtab-btn.active[data-net="tsps"]   { background: rgba(52,211,153,0.16); color: var(--tsps); border-color: var(--tsps); }
-    .subtab-btn.active[data-net="wisdom"] { background: rgba(251,191,36,0.16); color: var(--wisdom); border-color: var(--wisdom); }
+    .subtab-btn.active[data-net="phet"]    { background: rgba(56,189,248,0.16); color: var(--phet); border-color: var(--phet); }
+    .subtab-btn.active[data-net="tsps"]    { background: rgba(52,211,153,0.16); color: var(--tsps); border-color: var(--tsps); }
+    .subtab-btn.active[data-net="wisdom"]  { background: rgba(251,191,36,0.16); color: var(--wisdom); border-color: var(--wisdom); }
+    .subtab-btn.active[data-net="special"] { background: rgba(192,132,252,0.16); color: var(--special); border-color: var(--special); }
 
     /* Person Card */
     .card-list { display: grid; gap: 12px; }
@@ -318,18 +277,8 @@
       align-items: center;
       justify-content: center;
     }
-    .avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .avatar-placeholder {
-      width: 42px;
-      height: 42px;
-      opacity: 0.35;
-      color: var(--muted);
-    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .avatar-placeholder { width: 42px; height: 42px; opacity: 0.35; color: var(--muted); }
     .card-body { flex: 1; min-width: 0; }
     .net-tag {
       display: inline-block;
@@ -339,30 +288,15 @@
       border-radius: 6px;
       margin-bottom: 4px;
     }
-    .tag-phet   { background: rgba(56,189,248,0.15); color: var(--phet); }
-    .tag-tsps   { background: rgba(52,211,153,0.15); color: var(--tsps); }
-    .tag-wisdom { background: rgba(251,191,36,0.15); color: var(--wisdom); }
+    .tag-phet    { background: rgba(56,189,248,0.15); color: var(--phet); }
+    .tag-tsps    { background: rgba(52,211,153,0.15); color: var(--tsps); }
+    .tag-wisdom  { background: rgba(251,191,36,0.15); color: var(--wisdom); }
+    .tag-special { background: rgba(192,132,252,0.16); color: var(--special); }
 
-    .person-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      word-break: break-word;
-    }
-    .detail-list {
-      margin-top: 6px;
-      display: grid;
-      gap: 3px;
-      font-size: 13.5px;
-      color: #cbd5e1;
-    }
+    .person-name { font-size: 16px; font-weight: 700; color: #fff; word-break: break-word; }
+    .detail-list { margin-top: 6px; display: grid; gap: 3px; font-size: 13.5px; color: #cbd5e1; }
     .detail-list span.lbl { color: var(--muted); }
-    .card-actions {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .card-actions { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
     .btn-call {
       background: rgba(34,197,94,0.16);
       color: #4ade80;
@@ -388,6 +322,17 @@
       font-family: inherit;
     }
 
+    /* Duplicate Warning Banner */
+    .dup-warn {
+      display: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(251,191,36,0.4);
+      color: #fde68a;
+      font-size: 13px;
+    }
+
     /* Dashboard */
     .stat-grid {
       display: grid;
@@ -395,17 +340,15 @@
       gap: 10px;
       margin-bottom: 16px;
     }
-    @media (min-width: 600px) {
-      .stat-grid { grid-template-columns: repeat(4, 1fr); }
-    }
+    @media (min-width: 600px) { .stat-grid { grid-template-columns: repeat(5, 1fr); } }
     .stat-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px;
+      padding: 12px;
     }
-    .stat-card .s-lbl { font-size: 12.5px; color: var(--muted); }
-    .stat-card .s-val { font-size: 26px; font-weight: 700; margin-top: 2px; }
+    .stat-card .s-lbl { font-size: 12px; color: var(--muted); }
+    .stat-card .s-val { font-size: 24px; font-weight: 700; margin-top: 2px; }
     .dist-acc {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -422,13 +365,8 @@
       gap: 8px;
     }
     .dist-name { font-weight: 600; font-size: 15px; }
-    .dist-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-    .mini-badge {
-      font-size: 12px;
-      padding: 2px 7px;
-      border-radius: 6px;
-      font-weight: 600;
-    }
+    .dist-badges { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .mini-badge { font-size: 11.5px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
     .subdist-body {
       display: none;
       border-top: 1px solid var(--border);
@@ -441,11 +379,12 @@
       justify-content: space-between;
       padding: 6px 0;
       border-bottom: 1px dashed rgba(51,65,85,0.6);
-      font-size: 13.5px;
+      font-size: 13px;
+      gap: 8px;
     }
     .subdist-row:last-child { border-bottom: none; }
 
-    /* Bottom Navigation */
+    /* Bottom Navigation (4 Tabs) */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -455,7 +394,7 @@
       backdrop-filter: blur(10px);
       border-top: 1px solid var(--border);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       z-index: 200;
       padding-bottom: env(safe-area-inset-bottom);
     }
@@ -465,7 +404,7 @@
       color: var(--muted);
       padding: 10px 4px;
       font-family: inherit;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       display: flex;
       flex-direction: column;
@@ -474,9 +413,10 @@
       cursor: pointer;
     }
     .nav-item.active { color: var(--primary); }
+    .nav-item.active[data-view="add"] { color: var(--special); }
     .nav-item svg { width: 22px; height: 22px; }
 
-    /* Modals */
+    /* Modals & Cropper */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -499,12 +439,7 @@
       border-radius: 18px;
       padding: 20px;
     }
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .modal-head h2 { margin: 0; font-size: 18px; }
     .btn-close {
       background: var(--surface-2);
@@ -527,12 +462,7 @@
       display: none;
     }
     .crop-container img { max-width: 100%; display: block; }
-    .photo-preview-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
+    .photo-preview-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
     .photo-preview-box {
       width: 66px;
       aspect-ratio: 3 / 4;
@@ -541,16 +471,13 @@
       background: var(--bg);
       border: 1px solid var(--border);
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .photo-preview-box img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Lightbox */
-    #lightboxModal img {
-      max-width: 90vw;
-      max-height: 82vh;
-      border-radius: 14px;
-      border: 2px solid var(--border);
-    }
+    #lightboxModal img { max-width: 90vw; max-height: 82vh; border-radius: 14px; border: 2px solid var(--border); }
 
     .empty-state {
       text-align: center;
@@ -608,6 +535,7 @@
               <option value="phet">ครูเพชรในตม</option>
               <option value="tsps">สมาชิก ทสปช.</option>
               <option value="wisdom">ปราชญ์เพื่อความมั่นคง</option>
+              <option value="special">ภารกิจพิเศษ</option>
             </select>
           </div>
           <div id="subLevelWrap" style="display:none;">
@@ -632,7 +560,7 @@
           </div>
         </div>
         <div>
-          <label class="field-label">คำค้นหา (ชื่อ / นามสกุล / ตำแหน่ง / องค์ความรู้)</label>
+          <label class="field-label">คำค้นหา (ชื่อ / นามสกุล / ตำแหน่ง / ชื่อภารกิจ / องค์ความรู้)</label>
           <input type="text" id="filterQuery" placeholder="พิมพ์คำค้นหา..." oninput="renderAreaSearch()" />
         </div>
       </div>
@@ -646,9 +574,10 @@
     <!-- VIEW 2: NETWORK TABS -->
     <section id="view-networks" class="view-section">
       <div class="subtabs">
-        <button class="subtab-btn active" data-net="phet" onclick="switchNetworkTab('phet')">ครูเพชรในตม</button>
-        <button class="subtab-btn" data-net="tsps" onclick="switchNetworkTab('tsps')">สมาชิก ทสปช.</button>
+        <button class="subtab-btn active" data-net="phet" onclick="switchNetworkTab('phet')">เพชรในตม</button>
+        <button class="subtab-btn" data-net="tsps" onclick="switchNetworkTab('tsps')">ทสปช.</button>
         <button class="subtab-btn" data-net="wisdom" onclick="switchNetworkTab('wisdom')">ปราชญ์ฯ</button>
+        <button class="subtab-btn" data-net="special" onclick="switchNetworkTab('special')">ภารกิจพิเศษ</button>
       </div>
       <div class="filter-box">
         <div class="filter-row">
@@ -660,27 +589,101 @@
           </div>
           <div>
             <label class="field-label">ค้นหาในเครือข่าย</label>
-            <input type="text" id="netQuery" placeholder="ชื่อ, อำเภอ, ตำบล..." oninput="renderNetworkTab()" />
+            <input type="text" id="netQuery" placeholder="ชื่อ, อำเภอ, ภารกิจ..." oninput="renderNetworkTab()" />
           </div>
         </div>
       </div>
-      <div class="result-bar">
-        <span id="netCount">0 รายการ</span>
-      </div>
+      <div class="result-bar"><span id="netCount">0 รายการ</span></div>
       <div id="netList" class="card-list"></div>
     </section>
 
     <!-- VIEW 3: DASHBOARD -->
     <section id="view-dashboard" class="view-section">
       <div class="stat-grid" id="statGrid"></div>
-      <div class="result-bar">
-        <span>สรุปยอดรายอำเภอ (แตะเพื่อดูแยกตามตำบล)</span>
-      </div>
+      <div class="result-bar"><span>สรุปยอดรายอำเภอ (แตะเพื่อดูแยกตามตำบล)</span></div>
       <div id="districtSummary"></div>
+    </section>
+
+    <!-- VIEW 4: ADD SPECIAL MISSION RECORD -->
+    <section id="view-add" class="view-section">
+      <div class="filter-box">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="net-tag tag-special" style="font-size:13px;padding:4px 10px;">+ เพิ่มมวลชน (ภารกิจพิเศษ)</span>
+          <span style="font-size:12px;color:var(--muted);">ช่องไหนยังไม่มีข้อมูล เว้นว่างได้</span>
+        </div>
+
+        <div>
+          <label class="field-label">กลุ่มย่อย / ประเภทบุคคล</label>
+          <select id="addSubLevel" onchange="onAddSubLevelChange()"></select>
+          <input type="text" id="addSubLevelCustom" placeholder="ระบุกลุ่มย่อยใหม่ (จะถูกเพิ่มเป็นตัวเลือกในครั้งถัดไป)" style="display:none;margin-top:8px;" />
+        </div>
+
+        <div class="filter-row">
+          <div>
+            <label class="field-label">คำนำหน้า</label>
+            <input type="text" id="addPrefix" placeholder="นาย / นาง / น.ส. / ยศ" />
+          </div>
+          <div>
+            <label class="field-label">ชื่อ *</label>
+            <input type="text" id="addFirstName" placeholder="กรอกชื่อ" oninput="checkDuplicateName()" />
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label">นามสกุล</label>
+          <input type="text" id="addLastName" placeholder="กรอกนามสกุล" oninput="checkDuplicateName()" />
+        </div>
+
+        <div id="dupWarnBox" class="dup-warn"></div>
+
+        <div>
+          <label class="field-label">ตำแหน่ง / อาชีพ</label>
+          <input type="text" id="addPosition" placeholder="เช่น ผู้ใหญ่บ้าน, ประธานกลุ่ม, ผู้ประกอบการ" />
+        </div>
+
+        <div>
+          <label class="field-label">ชื่อภารกิจ / พื้นที่ที่พบ (เลือกจากภารกิจเดิมหรือพิมพ์ใหม่ได้)</label>
+          <input type="text" id="addMission" list="missionList" placeholder="เช่น ลงพื้นที่ตรวจเยี่ยมผู้ประสบภัย..." />
+          <datalist id="missionList"></datalist>
+        </div>
+
+        <div class="filter-row">
+          <div>
+            <label class="field-label">อำเภอ (23 อำเภอ จว.น.ศ.)</label>
+            <select id="addDistrict" onchange="populateAddSubdistrictDatalist()"></select>
+          </div>
+          <div>
+            <label class="field-label">ตำบล</label>
+            <input type="text" id="addSubdistrict" list="addSubdistrictList" placeholder="พิมพ์หรือเลือกตำบล" />
+            <datalist id="addSubdistrictList"></datalist>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label">หมายเลขโทรศัพท์</label>
+          <input type="text" id="addPhone" placeholder="เช่น 081-2345678" />
+        </div>
+
+        <div>
+          <label class="field-label">ข้อมูลเพิ่มเติม / หมายเหตุหน้างาน</label>
+          <textarea id="addNote" rows="2" placeholder="รายละเอียดการประสานงาน บทบาทในพื้นที่ หรือข้อสังเกต..."></textarea>
+        </div>
+
+        <div>
+          <label class="field-label">ถ่ายภาพ / แนบภาพบุคคล (สัดส่วน 3:4)</label>
+          <input type="file" id="addPhotoInput" accept="image/*" onchange="onAddPhotoSelected(event)" style="font-size:13px;" />
+          <div class="crop-container" id="addCropContainer">
+            <img id="addCropImage" alt="crop" />
+          </div>
+        </div>
+
+        <button id="submitAddBtn" class="btn btn-special" onclick="submitSpecialRecord()">บันทึกข้อมูลมวลชนใหม่</button>
+        <div id="addStatus" style="font-size:13.5px;text-align:center;color:var(--muted);"></div>
+      </div>
     </section>
   </main>
 
-  <!-- BOTTOM NAV -->
+  <!-- BOTTOM NAV (4 TABS) -->
   <nav class="bottom-nav">
     <button class="nav-item active" data-view="search" onclick="switchView('search')">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>
@@ -693,6 +696,10 @@
     <button class="nav-item" data-view="dashboard" onclick="switchView('dashboard')">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9 9 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
       สรุปยอด
+    </button>
+    <button class="nav-item" data-view="add" onclick="switchView('add')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      เพิ่มมวลชน
     </button>
   </nav>
 </div>
@@ -761,6 +768,20 @@
           <textarea id="editKnowledge" rows="2"></textarea>
         </div>
       </div>
+      <div id="fieldSpecialWrap" style="display:none;" class="form-grid">
+        <div>
+          <label class="field-label">กลุ่มย่อย / ประเภทบุคคล</label>
+          <input type="text" id="editSpecialSubLevel" />
+        </div>
+        <div>
+          <label class="field-label">ชื่อภารกิจ</label>
+          <input type="text" id="editMission" />
+        </div>
+        <div>
+          <label class="field-label">ข้อมูลเพิ่มเติม</label>
+          <textarea id="editNote" rows="2"></textarea>
+        </div>
+      </div>
 
       <div class="filter-row">
         <div>
@@ -795,12 +816,26 @@
   const NON_GEO_DISTRICTS = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)", "ไม่ระบุอำเภอ"];
   const NON_GEO_SUBDISTRICTS = ["ระดับจังหวัด", "กลุ่มนิสิต", "-"];
 
+  const NST_DISTRICTS = [
+    "เมืองนครศรีธรรมราช", "พรหมคีรี", "ลานสกา", "ฉวาง", "พิปูน",
+    "เชียรใหญ่", "ชะอวด", "ท่าศาลา", "ทุ่งสง", "นาบอน",
+    "ทุ่งใหญ่", "ปากพนัง", "ร่อนพิบูลย์", "สิชล", "ขนอม",
+    "หัวไทร", "บางขัน", "ถ้ำพรรณรา", "จุฬาภรณ์", "พระพรหม",
+    "นบพิตำ", "ช้างกลาง", "เฉลิมพระเกียรติ"
+  ];
+
+  const DEFAULT_SPECIAL_SUBLEVELS = [
+    "ผู้นำท้องถิ่น", "ผู้นำชุมชน", "ภาคประชาสังคม",
+    "แกนนำเยาวชน", "ผู้ประกอบการ", "เจ้าหน้าที่รัฐ"
+  ];
+
   let allRecords = [];
   let currentRole = null;
   let currentPin = null;
   let currentNetTab = "phet";
   let editingRecord = null;
   let cropperInstance = null;
+  let addCropperInstance = null;
   let deferredPrompt = null;
 
   const AVATAR_SVG = `<svg class="avatar-placeholder" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`;
@@ -812,9 +847,7 @@
   window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
-    if (!isStandalone) {
-      document.getElementById("installPwaBtn").style.display = "inline-flex";
-    }
+    if (!isStandalone) document.getElementById("installPwaBtn").style.display = "inline-flex";
   });
 
   window.addEventListener("appinstalled", () => {
@@ -830,12 +863,10 @@
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") {
-        document.getElementById("installPwaBtn").style.display = "none";
-      }
+      if (outcome === "accepted") document.getElementById("installPwaBtn").style.display = "none";
       deferredPrompt = null;
     } else if (isIos) {
-      alert('วิธีติดตั้งบน iPhone:\n1. แตะปุ่ม "แชร์" (ไอคอนลูกศรชี้ขึ้นด้านล่าง)\n2. เลื่อนลงมาเลือก "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)\n3. กด "เพิ่ม" มุมขวาบน');
+      alert('วิธีติดตั้งบน iPhone:\n1. แตะปุ่ม "แชร์" ด้านล่าง\n2. เลือก "เพิ่มไปยังหน้าจอโฮม" (Add to Home Screen)\n3. กด "เพิ่ม" มุมขวาบน');
     }
   }
 
@@ -868,6 +899,7 @@
   }
 
   function classifySubLevel(r) {
+    if (r.type === "special") return r.subLevel || "ทั่วไป";
     const pos = String(r.position || "");
     if (r.type === "phet") {
       if (pos.includes("ศึกษาปีที่") || !r.rawDistrict) return "นิสิต";
@@ -879,24 +911,23 @@
       if (!r.rawDistrict || r.district === "ระดับจังหวัด / ที่ปรึกษา") return "คณะกรรมการระดับจังหวัด";
       return "สมาชิก ทสปช. ทั่วไป";
     }
-    if (r.type === "wisdom") {
-      return r.branch || "ไม่ระบุสาขา";
-    }
+    if (r.type === "wisdom") return r.branch || "ไม่ระบุสาขา";
     return "";
   }
 
+  function getSpecialSubLevels() {
+    const fromSheet = allRecords.filter(r => r.type === "special").map(r => r.subLevel).filter(Boolean);
+    return [...new Set([...DEFAULT_SPECIAL_SUBLEVELS, ...fromSheet])];
+  }
+
   function getSubLevelOptions(type) {
-    if (type === "phet") {
-      return ["ผู้บริหาร", "ครูผู้สอน", "นิสิต"];
-    }
-    if (type === "tsps") {
-      return ["ที่ปรึกษา", "คณะกรรมการระดับจังหวัด", "สมาชิก ทสปช. ทั่วไป"];
-    }
+    if (type === "phet") return ["ผู้บริหาร", "ครูผู้สอน", "นิสิต"];
+    if (type === "tsps") return ["ที่ปรึกษา", "คณะกรรมการระดับจังหวัด", "สมาชิก ทสปช. ทั่วไป"];
     if (type === "wisdom") {
-      return [...new Set(
-        allRecords.filter(r => r.type === "wisdom").map(r => r.subLevel).filter(Boolean)
-      )].sort((a, b) => a.localeCompare(b, "th"));
+      return [...new Set(allRecords.filter(r => r.type === "wisdom").map(r => r.subLevel).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "th"));
     }
+    if (type === "special") return getSpecialSubLevels();
     return [];
   }
 
@@ -904,6 +935,7 @@
     if (type === "phet") return "ระดับเครือข่าย (ครูเพชรในตม)";
     if (type === "tsps") return "ระดับสมาชิก (ทสปช.)";
     if (type === "wisdom") return "สาขาความเชี่ยวชาญ (ปราชญ์ฯ)";
+    if (type === "special") return "กลุ่มย่อย (ภารกิจพิเศษ)";
     return "ระดับ / กลุ่มย่อย";
   }
 
@@ -940,17 +972,22 @@
 
       document.getElementById("loginScreen").style.display = "none";
       document.getElementById("appShell").style.display = "block";
-      initFilters();
-      populateNetSubLevel();
-      renderAreaSearch();
-      renderNetworkTab();
-      renderDashboard();
+      refreshAllViews();
     } catch (e) {
       errEl.textContent = "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่";
     } finally {
       btn.disabled = false;
       btn.textContent = "เข้าสู่ระบบ";
     }
+  }
+
+  function refreshAllViews() {
+    initFilters();
+    populateNetSubLevel();
+    initAddFormOptions();
+    renderAreaSearch();
+    renderNetworkTab();
+    renderDashboard();
   }
 
   function handleLogout() {
@@ -970,6 +1007,168 @@
       el.classList.toggle("active", el.dataset.view === viewName);
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ==================== ADD SPECIAL MISSION FORM ====================
+  function initAddFormOptions() {
+    const subSel = document.getElementById("addSubLevel");
+    const opts = getSpecialSubLevels();
+    subSel.innerHTML = opts.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("") +
+      `<option value="__custom__">+ ระบุกลุ่มย่อยใหม่...</option>`;
+
+    const distSel = document.getElementById("addDistrict");
+    if (!distSel.options.length) {
+      distSel.innerHTML = `<option value="">-- เลือกอำเภอ --</option>` +
+        NST_DISTRICTS.map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join("");
+    }
+
+    const missions = [...new Set(
+      allRecords.filter(r => r.type === "special" && r.mission).map(r => r.mission)
+    )].sort((a, b) => a.localeCompare(b, "th"));
+    document.getElementById("missionList").innerHTML = missions.map(m => `<option value="${esc(m)}">`).join("");
+
+    populateAddSubdistrictDatalist();
+  }
+
+  function onAddSubLevelChange() {
+    const val = document.getElementById("addSubLevel").value;
+    document.getElementById("addSubLevelCustom").style.display = val === "__custom__" ? "block" : "none";
+  }
+
+  function populateAddSubdistrictDatalist() {
+    const dist = document.getElementById("addDistrict").value;
+    const subs = [...new Set(
+      allRecords
+        .filter(r => (!dist || r.district === dist) && r.subdistrict && !NON_GEO_SUBDISTRICTS.includes(r.subdistrict))
+        .map(r => r.subdistrict)
+    )].sort((a, b) => a.localeCompare(b, "th"));
+    document.getElementById("addSubdistrictList").innerHTML = subs.map(s => `<option value="${esc(s)}">`).join("");
+  }
+
+  function checkDuplicateName() {
+    const fn = document.getElementById("addFirstName").value.trim().toLowerCase();
+    const ln = document.getElementById("addLastName").value.trim().toLowerCase();
+    const box = document.getElementById("dupWarnBox");
+    if (fn.length < 2) { box.style.display = "none"; return; }
+
+    const matches = allRecords.filter(r => {
+      const rfn = String(r.firstName || "").toLowerCase();
+      const rln = String(r.lastName || "").toLowerCase();
+      return rfn === fn && (!ln || rln === ln);
+    });
+
+    if (matches.length) {
+      const info = matches.slice(0, 3).map(m => `${m.prefix}${m.firstName} ${m.lastName} (${m.typeLabel})`).join(", ");
+      box.innerHTML = `⚠️ พบชื่อคล้ายกันในระบบแล้ว: <strong>${esc(info)}</strong> (สามารถบันทึกต่อได้หากเป็นคนละคนหรือคนละภารกิจ)`;
+      box.style.display = "block";
+    } else {
+      box.style.display = "none";
+    }
+  }
+
+  function onAddPhotoSelected(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.getElementById("addCropImage");
+      img.src = e.target.result;
+      document.getElementById("addCropContainer").style.display = "block";
+      if (addCropperInstance) addCropperInstance.destroy();
+      addCropperInstance = new Cropper(img, {
+        aspectRatio: 3 / 4,
+        viewMode: 1,
+        dragMode: "move",
+        autoCropArea: 0.9,
+        responsive: true,
+        background: false
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function submitSpecialRecord() {
+    const firstName = document.getElementById("addFirstName").value.trim();
+    const status = document.getElementById("addStatus");
+    const btn = document.getElementById("submitAddBtn");
+
+    if (!firstName) {
+      status.style.color = "#f87171";
+      status.textContent = "กรุณากรอกอย่างน้อยช่อง 'ชื่อ' ครับ";
+      return;
+    }
+
+    let subLevel = document.getElementById("addSubLevel").value;
+    if (subLevel === "__custom__") {
+      subLevel = document.getElementById("addSubLevelCustom").value.trim() || "ทั่วไป";
+    }
+
+    const record = {
+      subLevel: subLevel,
+      prefix: document.getElementById("addPrefix").value.trim(),
+      firstName: firstName,
+      lastName: document.getElementById("addLastName").value.trim(),
+      position: document.getElementById("addPosition").value.trim(),
+      mission: document.getElementById("addMission").value.trim(),
+      rawDistrict: document.getElementById("addDistrict").value.trim(),
+      rawSubdistrict: document.getElementById("addSubdistrict").value.trim(),
+      phone: document.getElementById("addPhone").value.trim(),
+      note: document.getElementById("addNote").value.trim()
+    };
+
+    let photoBase64 = "";
+    if (addCropperInstance) {
+      status.style.color = "var(--muted)";
+      status.textContent = "กำลังย่อและอัปโหลดรูปภาพ...";
+      const canvas = addCropperInstance.getCroppedCanvas({ width: 300, height: 400 });
+      photoBase64 = canvas.toDataURL("image/jpeg", 0.85);
+    }
+
+    btn.disabled = true;
+    status.style.color = "var(--muted)";
+    status.textContent = "กำลังบันทึกข้อมูลลงชีต ภารกิจพิเศษ...";
+
+    try {
+      const res = await apiPost({
+        action: "addSpecialRecord",
+        pin: currentPin,
+        record: record,
+        photoBase64: photoBase64
+      });
+
+      if (!res.ok) {
+        status.style.color = "#f87171";
+        status.textContent = "บันทึกไม่สำเร็จ: " + (res.error || "");
+        return;
+      }
+
+      const refreshed = await apiPost({ action: "getData", pin: currentPin });
+      if (refreshed.ok) {
+        allRecords = (refreshed.records || []).map(r => ({ ...r, subLevel: classifySubLevel(r) }));
+      }
+
+      document.getElementById("addPrefix").value = "";
+      document.getElementById("addFirstName").value = "";
+      document.getElementById("addLastName").value = "";
+      document.getElementById("addPosition").value = "";
+      document.getElementById("addPhone").value = "";
+      document.getElementById("addNote").value = "";
+      document.getElementById("addSubLevelCustom").value = "";
+      document.getElementById("addSubLevelCustom").style.display = "none";
+      document.getElementById("dupWarnBox").style.display = "none";
+      document.getElementById("addPhotoInput").value = "";
+      document.getElementById("addCropContainer").style.display = "none";
+      if (addCropperInstance) { addCropperInstance.destroy(); addCropperInstance = null; }
+
+      refreshAllViews();
+      status.style.color = "#4ade80";
+      status.textContent = "✅ บันทึกข้อมูลเรียบร้อยแล้ว (สามารถเพิ่มคนถัดไปต่อได้เลย)";
+    } catch (e) {
+      status.style.color = "#f87171";
+      status.textContent = "เกิดข้อผิดพลาดในการเชื่อมต่อ";
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   // ==================== FILTERS (AREA SEARCH) ====================
@@ -1069,7 +1268,8 @@
       if (q) {
         const hay = [
           r.prefix, r.firstName, r.lastName, r.position, r.workplace,
-          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone, r.subLevel
+          r.branch, r.category, r.knowledge, r.mission, r.note,
+          r.subdistrict, r.district, r.phone, r.subLevel
         ].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
@@ -1107,7 +1307,8 @@
       if (q) {
         const hay = [
           r.prefix, r.firstName, r.lastName, r.position, r.workplace,
-          r.branch, r.category, r.knowledge, r.subdistrict, r.district, r.phone, r.subLevel
+          r.branch, r.category, r.knowledge, r.mission, r.note,
+          r.subdistrict, r.district, r.phone, r.subLevel
         ].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
@@ -1122,7 +1323,8 @@
 
   function buildPersonCard(r) {
     const fullName = `${r.prefix}${r.firstName} ${r.lastName}`.trim();
-    const tagClass = r.type === "phet" ? "tag-phet" : (r.type === "tsps" ? "tag-tsps" : "tag-wisdom");
+    const tagMap = { phet: "tag-phet", tsps: "tag-tsps", wisdom: "tag-wisdom", special: "tag-special" };
+    const tagClass = tagMap[r.type] || "tag-phet";
     const avatarHtml = r.photoUrl
       ? `<img src="${esc(r.photoUrl)}" alt="${esc(fullName)}" loading="lazy" onclick="openLightbox('${esc(r.photoUrl)}')" />`
       : AVATAR_SVG;
@@ -1139,12 +1341,20 @@
         <div><span class="lbl">ตำแหน่ง:</span> ${esc(r.position || "-")}</div>
         <div><span class="lbl">พื้นที่:</span> ${r.rawDistrict ? `ต.${esc(r.subdistrict)} อ.${esc(r.district)}` : esc(r.subLevel)}</div>
       `;
-    } else {
+    } else if (r.type === "wisdom") {
       details = `
         <div><span class="lbl">ตำแหน่ง:</span> ${esc(r.position || "-")}</div>
         <div><span class="lbl">สาขา:</span> ${esc(r.branch || "-")} | <span class="lbl">ประเภท:</span> ${esc(r.category || "-")}</div>
         <div><span class="lbl">ความเชี่ยวชาญ:</span> ${esc(r.knowledge || "-")}</div>
         <div><span class="lbl">พื้นที่:</span> ต.${esc(r.subdistrict)} อ.${esc(r.district)}</div>
+      `;
+    } else {
+      details = `
+        ${r.position ? `<div><span class="lbl">ตำแหน่ง/อาชีพ:</span> ${esc(r.position)}</div>` : ""}
+        ${r.mission ? `<div><span class="lbl">ภารกิจ:</span> ${esc(r.mission)}</div>` : ""}
+        ${r.note ? `<div><span class="lbl">หมายเหตุ:</span> ${esc(r.note)}</div>` : ""}
+        <div><span class="lbl">พื้นที่:</span> ${r.rawDistrict ? `${r.rawSubdistrict ? "ต." + esc(r.rawSubdistrict) + " " : ""}อ.${esc(r.rawDistrict)}` : "-"}</div>
+        ${r.savedAt ? `<div style="font-size:11.5px;color:var(--muted);">บันทึกเมื่อ: ${esc(r.savedAt)}</div>` : ""}
       `;
     }
 
@@ -1175,31 +1385,33 @@
     const cPhet = allRecords.filter(r => r.type === "phet").length;
     const cTsps = allRecords.filter(r => r.type === "tsps").length;
     const cWis  = allRecords.filter(r => r.type === "wisdom").length;
+    const cSpec = allRecords.filter(r => r.type === "special").length;
 
     document.getElementById("statGrid").innerHTML = `
       <div class="stat-card"><div class="s-lbl">รวมทั้งหมด</div><div class="s-val" style="color:#fff">${total}</div></div>
       <div class="stat-card"><div class="s-lbl">ครูเพชรในตม</div><div class="s-val" style="color:var(--phet)">${cPhet}</div></div>
       <div class="stat-card"><div class="s-lbl">สมาชิก ทสปช.</div><div class="s-val" style="color:var(--tsps)">${cTsps}</div></div>
       <div class="stat-card"><div class="s-lbl">ปราชญ์ฯ</div><div class="s-val" style="color:var(--wisdom)">${cWis}</div></div>
+      <div class="stat-card"><div class="s-lbl">ภารกิจพิเศษ</div><div class="s-val" style="color:var(--special)">${cSpec}</div></div>
     `;
 
     const distMap = {};
     allRecords.forEach(r => {
-      const d = r.district || "ไม่ระบุ";
+      const d = r.district || "ไม่ระบุอำเภอ";
       const s = r.subdistrict || "-";
-      if (!distMap[d]) distMap[d] = { total: 0, phet: 0, tsps: 0, wisdom: 0, subs: {} };
+      if (!distMap[d]) distMap[d] = { total: 0, phet: 0, tsps: 0, wisdom: 0, special: 0, subs: {} };
       distMap[d].total++;
-      distMap[d][r.type]++;
-      if (!distMap[d].subs[s]) distMap[d].subs[s] = { total: 0, phet: 0, tsps: 0, wisdom: 0 };
+      distMap[d][r.type] = (distMap[d][r.type] || 0) + 1;
+      if (!distMap[d].subs[s]) distMap[d].subs[s] = { total: 0, phet: 0, tsps: 0, wisdom: 0, special: 0 };
       distMap[d].subs[s].total++;
-      distMap[d].subs[s][r.type]++;
+      distMap[d].subs[s][r.type] = (distMap[d].subs[s][r.type] || 0) + 1;
     });
 
-    const special = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)"];
+    const specialDist = ["ระดับจังหวัด / ที่ปรึกษา", "กลุ่มนิสิต (ยังไม่ระบุพื้นที่)"];
     const allDist = Object.keys(distMap);
     const ordered = [
-      ...special.filter(s => allDist.includes(s)),
-      ...allDist.filter(d => !special.includes(d)).sort((a, b) => a.localeCompare(b, "th"))
+      ...specialDist.filter(s => allDist.includes(s)),
+      ...allDist.filter(d => !specialDist.includes(d)).sort((a, b) => a.localeCompare(b, "th"))
     ];
 
     const html = ordered.map(d => {
@@ -1212,8 +1424,8 @@
             <span>${esc(label)}</span>
             <span>
               <strong style="color:#fff">${si.total}</strong>
-              <span style="color:var(--muted);font-size:12px;">
-                (เพชร ${si.phet} / ทสปช. ${si.tsps} / ปราชญ์ ${si.wisdom})
+              <span style="color:var(--muted);font-size:11.5px;">
+                (เพชร ${si.phet} / ทสปช. ${si.tsps} / ปราชญ์ ${si.wisdom} / พิเศษ ${si.special})
               </span>
             </span>
           </div>
@@ -1228,6 +1440,7 @@
               ${info.phet ? `<span class="mini-badge tag-phet">เพชร ${info.phet}</span>` : ""}
               ${info.tsps ? `<span class="mini-badge tag-tsps">ทสปช. ${info.tsps}</span>` : ""}
               ${info.wisdom ? `<span class="mini-badge tag-wisdom">ปราชญ์ ${info.wisdom}</span>` : ""}
+              ${info.special ? `<span class="mini-badge tag-special">พิเศษ ${info.special}</span>` : ""}
               <span class="mini-badge" style="background:var(--surface-2);color:#fff;">รวม ${info.total}</span>
             </div>
           </div>
@@ -1256,6 +1469,7 @@
     document.getElementById("fieldBatchWrap").style.display = rec.type === "phet" ? "block" : "none";
     document.getElementById("fieldWorkplaceWrap").style.display = rec.type === "phet" ? "block" : "none";
     document.getElementById("fieldWisdomWrap").style.display = rec.type === "wisdom" ? "grid" : "none";
+    document.getElementById("fieldSpecialWrap").style.display = rec.type === "special" ? "grid" : "none";
 
     if (rec.type === "phet") {
       document.getElementById("editBatch").value = rec.batch || "";
@@ -1266,10 +1480,15 @@
       document.getElementById("editCategory").value = rec.category || "";
       document.getElementById("editKnowledge").value = rec.knowledge || "";
     }
+    if (rec.type === "special") {
+      document.getElementById("editSpecialSubLevel").value = rec.subLevel || "";
+      document.getElementById("editMission").value = rec.mission || "";
+      document.getElementById("editNote").value = rec.note || "";
+    }
 
     document.getElementById("editCurrentPhoto").innerHTML = rec.photoUrl
       ? `<img src="${esc(rec.photoUrl)}" alt="current" />`
-      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">${AVATAR_SVG}</div>`;
+      : AVATAR_SVG;
 
     document.getElementById("photoFileInput").value = "";
     document.getElementById("cropContainer").style.display = "none";
@@ -1329,6 +1548,11 @@
       editingRecord.category = document.getElementById("editCategory").value.trim();
       editingRecord.knowledge = document.getElementById("editKnowledge").value.trim();
     }
+    if (editingRecord.type === "special") {
+      editingRecord.subLevel = document.getElementById("editSpecialSubLevel").value.trim();
+      editingRecord.mission = document.getElementById("editMission").value.trim();
+      editingRecord.note = document.getElementById("editNote").value.trim();
+    }
 
     let photoBase64 = "";
     if (cropperInstance) {
@@ -1355,11 +1579,7 @@
         allRecords = (refreshed.records || []).map(r => ({ ...r, subLevel: classifySubLevel(r) }));
       }
 
-      initFilters();
-      populateNetSubLevel();
-      renderAreaSearch();
-      renderNetworkTab();
-      renderDashboard();
+      refreshAllViews();
       closeEditModal();
     } catch (e) {
       status.textContent = "เกิดข้อผิดพลาดในการเชื่อมต่อ";
